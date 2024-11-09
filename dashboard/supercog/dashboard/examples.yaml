@@ -1,0 +1,71 @@
+- name: Automation Assistant
+  description: |
+    Automation assistants perform a task in response to some trigger event. 
+    These assistants can apply logic to determine the appropriate action to take,
+    and they can enrich information as part of their job.
+
+    Typical trigger events are receiving an email, a directed message in Slack,
+    or polling for changes in a database. 
+
+    As an example, you could have an agent wait for new User records to appear
+    in a database, and then synchronize those records into your CRM. The
+    agent could lookup additional infomation about the user on the web and
+    add that data automatically to the CRM record.
+
+    To create an Automation agent:
+    ```
+    - Choose the Trigger you want for your agent
+    - Choose the tools the agent will need to perform its task
+    - Write instructions for the agent to follow
+    ```
+
+- name: Connector Agent
+  description: |
+    An agent can serve as intelligent connector to a dedicated system. You can
+    use either an underlying connector tool if one is available, or just build
+    using the REST API tool.
+
+    Connectors provide a high level way to interact with a SaaS system, hiding
+    the details of that system's APIs and data formats. The result is an agent
+    that can take action within the system, or extract information as needed,
+    without the caller needing to know any low-level details.
+
+    A Connector Agent can be used interatively by a person, or can be utilized
+    by other agents.
+
+- name: Integration Agent
+  description: |
+    Integration agents can move data between systems, or between files and
+    databases and SaaS applications.
+    
+    Data movement can be one-time or ongoing. For ongoing movement you will
+    want to choose a trigger to activate the agent, which can either be 
+    an event or a schedule.
+
+    Choose a "Source system" tool, and a "Target system" tool, and add both
+    to the agent. If you need to transform data betwee the source schema
+    and the target schema then you can add the `DuckDB` tool which supports
+    using SQL for transformation.
+
+    You can give your agent very high level instructions, like:
+    ```
+    - Compare schemas of the source and target system
+    - Generate a SQL mapping to transform the data
+    - Read records from the source system, transform them, and write to the target system
+    ```
+    
+- name: Copilot
+  description: |
+    A "copilot" agent is designed to offer flexible assistance to someone
+    working in a particular role. Copilots can connect to systems themselves,
+    but they will often delegate to `task agents` to perform specific tasks.
+
+    Copilots can use long-term memory and reflection to improve their performance
+    over time.
+
+    To create a Copilot agent, select the task agents that the copilot will use
+    and enable them as tools. You can enable any other tools (such as the web
+    Browser for perfoming research) that the copilot needs.
+    
+
+    

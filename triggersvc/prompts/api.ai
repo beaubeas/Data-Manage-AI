@@ -1,0 +1,40 @@
+Please generate an application in python using the FastAPI
+package. This application should implement a REST API for
+running and managing "agents".
+
+You should implement a set of API routes, and for each route
+write the code including the input and output models. These
+models should be SQLModel classes and each route should save
+or retrieve the models as appropriate. If you have any 
+questions please ask first before you generate the code.
+
+The routes needed are:
+
+GET /tools
+    Returns a list of string names tools that can be used by an Agent.
+
+GET /models
+    Returns a list of string names of the LLM models that agents can use.
+
+POST /runs
+    Input payload:
+    agent: <the full agent description>, 
+    input: <string>, 
+    input_mode: <string>, 
+    turn_limit:int, 
+    timeout: <secs>,
+    result_channel: <string>, 
+    logs_channel: <string>
+    Creates a Run model that includes a run_id and the status, and
+    returns the model.
+
+GET /runs/{run_id}
+    Returns the Run model for the given run_id.
+
+PATCH /runs/{run_id}
+    Input: a Run model
+    Updates the properties of an existing Run.
+
+PUT /runs/{run_id}/cancel
+    Cancels the indicated Run.
+

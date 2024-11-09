@@ -1,0 +1,48 @@
+services:
+  redis:
+    env_file: .env
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  postgres:
+    env_file: .env
+    image: pgvector/pgvector:pg16
+    environment:
+      - POSTGRES_USER=${USER:-pguser}
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=dbname
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U $${POSTGRES_USER} -d $${POSTGRES_DB} -c select"]
+      start_period: 30s
+      start_interval: 5s
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${SUPERCOG_DATA}/postgres_data:/var/lib/postgresql/data
+      - ./scripts/postgres-init:/docker-entrypoint-initdb.d
+
+  minio:
+    env_file: .env
+    image: bitnami/minio:latest
+    ports:
+      - '${MINIO_API_PORT_NUMBER}:${MINIO_API_PORT_NUMBER}'
+      - '${MINIO_CONSOLE_PORT_NUMBER}:${MINIO_CONSOLE_PORT_NUMBER}'
+    environment:
+      - MINIO_ROOT_USER=${AWS_ACCESS_KEY_ID}
+      - MINIO_ROOT_PASSWORD=${AWS_SECRET_KEY}
+      - MINIO_DEFAULT_BUCKETS=${S3_PUBLIC_BUCKET}:public,${S3_FILES_BUCKET_NAME}:public
+      - MINIO_API_PORT_NUMBER=${MINIO_API_PORT_NUMBER}
+      - MINIO_CONSOLE_PORT_NUMBER=${MINIO_CONSOLE_PORT_NUMBER}
+    volumes:
+      - minio_data:/bitnami/minio/data
+
+volumes:
+  sc_localfiles:
+    driver: local
+  minio_data:
+    driver: local

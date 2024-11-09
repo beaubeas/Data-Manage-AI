@@ -1,0 +1,252 @@
+Ok firstly you should generate complete code. Do not leave sections for the user to fill in. Secod, I think we need to split up the opportunities that are created bewtween ones where the carrier changed and ones where the year changed. Then we need to put those opportunities into a two dimensional array that will be indexed by carrier name, and by year. And then when we go to attach an opportunity line item to an opportunity we can use the year of that opportunity and the carrier of that opportunity to index into those arrays and get the right opportunity to attach the product to.
+
+
+Understood. I will provide the complete Apex code with the necessary logic to handle the creation of Opportunities and OpportunityLineItems, including the two-dimensional array indexed by carrier name and year.
+
+Here's the complete Apex code:
+
+________________________________
+
+List<Group__c> groupList = [
+    SELECT Id, Name, (
+        SELECT Id, CloseDate, Name, StageName, Renewal_Date__c, Amount 
+        FROM Opportunities__r
+    ) 
+    FROM Group__c 
+    WHERE RecordTypeId = '0120h000000QjVNAA0' 
+    LIMIT 25
+];
+
+for (Group__c grp : groupList) {
+    Map<String, Map<String, Opportunity>> opportunitiesByYear = new Map<String, Map<String, Opportunity>>();
+
+    for (Opportunity opp : grp.Opportunities__r) {
+        // Extract fields from Opportunity Name
+        Pattern p = Pattern.compile('(\\d{4})\\.(\\d{2})\\s+([a-zA-Z ]+)\\s+([a-zA-Z]+)\\s+RENEWAL\\s+-\\s+([\\w\\s]+)');
+        Matcher m = p.matcher(opp.Name);
+        if (m.find()) {
+            String renewalYear = m.group(1);
+            String carrierName = m.group(3).trim();
+            String coverageType = m.group(4);
+
+            // Check if we need to create a new Opportunity
+            if (!opportunitiesByYear.containsKey(renewalYear)) {
+                opportunitiesByYear.put(renewalYear, new Map<String, Opportunity>());
+                System.debug('New year detected: ' + renewalYear);
+            }
+            if (!opportunitiesByYear.get(renewalYear).containsKey(carrierName)) {
+                // Create new Opportunity with the renewal date followed by the group name
+                Opportunity newOpp = new Opportunity();
+                newOpp.RecordTypeId = '012DL000006WtUGYA0';
+                newOpp.Pricebook2Id = '01sDL00000849CWYAY';
+                newOpp.Name = renewalYear + ' ' + grp.Name; // Set the new Opportunity name
+                newOpp.StageName = opp.StageName;
+                newOpp.CloseDate = opp.CloseDate;
+                newOpp.Renewal_Date__c = opp.Renewal_Date__c;
+                insert newOpp;
+                System.debug('New carrier detected: ' + carrierName);
+
+                // Log Opportunity creation
+                System.debug('REFAC New Opportunity inserted: ' + newOpp.Id + ' - ' + newOpp.Name);
+
+                opportunitiesByYear.get(renewalYear).put(carrierName, newOpp);
+            }
+
+            // Create OpportunityLineItem
+            OpportunityLineItem oli = new OpportunityLineItem();
+            oli.OpportunityId = opportunitiesByYear.get(renewalYear).get(carrierName).Id;
+            oli.Carrier_Text__c = carrierName;
+            oli.UnitPrice = opp.Amount;
+            oli.Quantity = 1;
+
+            // Set PriceBookEntryId and Product2Id based on coverage type
+            if (coverageType.equalsIgnoreCase('MED')) {
+                oli.PriceBookEntryId = '01uDL00000r0tbNYAQ';
+                oli.Product2Id = '01tDL00000I27u4YAB';
+            } else if (coverageType.equalsIgnoreCase('DEN')) {
+                oli.PriceBookEntryId = '01uDL00000r0uEWYAY';
+                oli.Product2Id = '01tDL00000I28P2YAJ';
+            } else if (coverageType.equalsIgnoreCase('LIFE')) {
+                oli.PriceBookEntryId = '01uDL00000r0uEqYAI';
+                oli.Product2Id = '01tDL00000I27u4YAB';
+            } else if (coverageType.equalsIgnoreCase('WORKSITE')) {
+                oli.PriceBookEntryId = '01uDL00000r0uF0YAI';
+                oli.Product2Id = '01tDL00000I28PHYAZ';
+            } else if (coverageType.equalsIgnoreCase('VIS') || coverageType.equalsIgnoreCase('Vision')) {
+                oli.PriceBookEntryId = '01uDL00000r0uEgYAI';
+                oli.Product2Id = '01tDL00000I28P7YAJ';
+            } else if (coverageType.equalsIgnoreCase('STD')) {
+                oli.PriceBookEntryId = '01uDL00000r0zLHYAY';
+                oli.Product2Id = '01tDL00000I2ESAYA3';
+            } else if (coverageType.equalsIgnoreCase('LTD')) {
+                oli.PriceBookEntryId = '01uDL00000r0zLRYAY';
+                oli.Product2Id = '01tDL00000I2ESFYA3';
+            }
+
+            insert oli;
+
+            // Log OpportunityLineItem creation
+            System.debug('REFAC New OpportunityLineItem inserted: ' + oli.Id + ' for Opportunity: ' + oli.OpportunityId);
+        }
+    }
+}
+
+
+_____________________________________________________________
+
+do not ever use multi tool use parallel
+I would like you to write an apex program to create new opportunities and opportunity line items in salesforce from existing opportunities.
+
+The program should start out by Querying 5 rows of sample data from the Group__c and related Opportunity objects.
+- Query Group__c objects with a recordTypeId of "0120h000000QjVNAA0".
+- remember to use the Opportunities__r for the relationship subquery.
+- Include their related Opportunity objects in the query.
+- query these results into lists of the appropriate object type.
+
+Below are the salesforce columns we will query and insert into our new opportunity  .
+Opportunity columns:
+
+Opportunity.Id
+Opportunity.CreatedBy
+Opportunity.CloseDate
+Opportunity.Name
+Opportunity.StageName
+Opportunity.Renewal_Date__c
+
+defaulted opportunity fields:
+
+Opportunity.RecordTypeId         '012DL000006WtUGYA0'
+Opportunity.Pricebook2Id.         '01sDL00000849CWYAY'
+We can use any of the opportunities we find in the related list search to fill in the above fields.
+
+Next we will create opportunity product objects for each opportunity in the list of opportunities related to the group. 
+
+For each of these opportunities we will have to extract the following fields from the opportunity.Name with a regular expression.
+
+     - 1. Renewal date - 
+     - 2. Carrier name - 
+     - 3. Coverage type -
+     - 4. Group name
+
+from a previous instructions with the LLM we came up with a regular expression and apex code to run it to extract these four variables. Please use that in your code.
+
+Here is the list of fields we will extract from each opportunity in the original list paired with the name of the field on opportunity line item that we will copy the field value to. If a line below starts with # then ignore that line
+Opprtunity.Carrier_name__c.                  OpportunityLineItem.Carrier_Text__c
+#OpportunityLineItem.Subscriptions_at_renewal__c
+#OpportunityLineItem.Post_Audit__c
+Opportunity.amount                                 OpportunityLineItem.UnitPrice
+#OpportunityLineItem.Commission_Per_Employee_Per_Month__c
+#OpportunityLineItem.Commission_As_Percentage__c
+
+Here is the list of fields on OpportunityLineItem that should be defaulted. the default value appears after the field name.
+OpportunityLineItem.Quantity                  1
+
+Use the Coverage type that you extracted from the Opportunity Name to set the following two fields according to this mapping:
+
+for coverage type similar to "MED"
+OpportunityLineItem.PriceBookEntryId         01uDL00000r0tbNYAQ
+OpportunityLineItem.Product2Id                    01tDL00000I27u4YAB
+
+for coverage type similar to "DEN"
+OpportunityLineItem.PriceBookEntryId         01uDL00000r0uEWYAY
+OpportunityLineItem.Product2Id                   01tDL00000I28P2YAJ
+
+For coverage type similar to "LIFE"
+OpportunityLineItem.PriceBookEntryId         01uDL00000r0uEqYAI
+OpportunityLineItem.Product2Id                   01tDL00000I27u4YAB
+
+for coverage type similar to "WORKSITE":
+OpportunityLineItem.PriceBookEntryId         01uDL00000r0uF0YAI
+OpportunityLineItem.Product2Id                   01tDL00000I28PHYAZ
+
+For coverage type similar to "VIS":
+OpportunityLineItem.PriceBookEntryId         01uDL00000r0uEgYAI
+OpportunityLineItem.Product2Id                   01tDL00000I28P7YAJ
+
+We may need to do some prototyping to find if the coverage type names are consistent and or abbreviated. In which case we will need to make our comparison test to find the coverage type more robust or test for a sequence of different possible names for the coverage type.
+
+- If the carrier changes when processing opportunities for a group, then we need to create a new opportunity for that new carrier.
+  and opportunity products should be created under the carrier with the correct opportunity.
+
+- There should be a new opportunity created for every year in succession. So for example: if we have just processed an opportunity where the renewal date is 2023 and the current row has a renewal date in 2024, then we should create a new opportunity to handle all renewal dates in 2024.
+
+
+_______________________________________________
+Please describe these fields on opportunity and mark which are formula fields
+
+AccountId
+Agency__c
+amount
+Basic_life_status__c
+Broker_county__c
+cancer_status__c
+Chiro_status__c
+Close_date__c
+ClosedDate_Day_of_the_week__c
+Confirmed_Appointment_with_carrier__c
+Consultation_Presentation_Meeting__c
+CreatedById
+CreatedDate
+Create_Date__c
+Critical_Illness_Status__c
+Day_of_the_week__c
+Dental_Status__c
+Description
+Disability_Status__c
+Enrollment_Meeting__c
+ESM_Agreement_Sent_Date__c
+ESM_Agreement_Signed_Date__c
+ESM_Service_Start_Date__c
+ExpectedRevenue
+Fiscal
+FiscalQuarter
+FiscalYear
+ForecastCategory
+ForecastCategoryName
+Group__c
+HasOpenActivity
+HasOpportunityLineItem
+HasOverdueTask
+Hospital_Indemnity_Status__c
+Installation_Direct_to_Carrier__c
+IsClosed
+IsDeleted
+IsPrivate
+IsWon
+Is_User_the_Analyst__c
+LastActivityDate
+LastAmountChangedHistoryId
+LastCloseDateChangedHistoryId
+LastModifiedById
+LastModifiedDate
+LastStageChangeDate
+Name
+Number_of_Groups__c
+Objective_Broker_Ranking__c
+Opportunity_Internal_Comments__c
+Opportunity_Open_Close_Status__c
+Opportunity_Owner_Role_Name__c
+OtherReason__c
+OwnerId
+Policy_Effective_Date__c
+Policy_Number__c
+Prepared_Employee_Worksheets__c
+Prepared_Enrollment_Kits__c
+Presentation_Meeting_Day_of_the_Week__c
+Probability
+PushCount
+RecordTypeId
+RecordTypeID__c
+Renewal_Date__c
+Sales_Consultant__c
+Scheduled_Implementation_Call__c
+Short_Term_Disability_Status__c
+StageName
+Suggested_Amount__c
+SystemModstamp
+Total_Days_Open__c
+Type
+Vision_Status__c
+Voluntary_Life_Status__c
+Worksite_Status__c
+X90_Days_Up_for_Renewal__c

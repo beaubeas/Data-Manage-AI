@@ -1,0 +1,263 @@
+You will receive details of an email sent by Google Meet which includes a link to the 
+meeting transcript. Please download the meeting transcript, then write a summary of the 
+meeting base on the transcript, but only consider the first 10 minutes. Send the summary 
+in an email to scott@tatari.tv.
+
+Start with a single line, comma separated, alphabetized and unique list of the participants. Then follow with sections that summarize the status of projects mentioned in the meeting. For each project
+note the timestamp of the discussion and include a link to the recording that looks like: 
+"https://drive.google.com/file/d/1QCm-IIW_HMhCWEl9atu6v5CBG5NGQ2cx/view?t=<minutes>m<seconds>s".
+Write the links in plain text.
+
+
+
+----------------
+Roadmap and Metrics Review (2024-02-14 14:02 GMT-5) - Transcript
+Attendees
+Ani Govindan, Ani Govindan's Presentation, Bruce Rechichar, Charlie Qin, Dan Stynchula, Dan Stynchula's Presentation, Henry Zhang, Henry Zhang's Presentation, Jeff Stamm, Jim Lyndon, Jim Lyndon's Presentation, Jordan Potthoff, Jordan Potthoff's Presentation, Lara McGowan, Mala Munisamy, Mala Munisamy's Presentation, Mister Ed, Peter Morawiec, Peter Morawiec's Presentation, Reno Brown, Ryan Farjadi, Ryan Farjadi's Presentation, Scott Idler, Scott Idler's Presentation, Scott Persinger, Toussaint Minett
+Transcript
+This editable transcript was computer generated and might contain errors. People can also change the text after it was created.
+Scott Persinger: Right cool.
+Mister Ed: fourth
+Scott Persinger: Welcome everybody to the first roadmap review of 2024 go Solutions. You got five minutes.
+Jordan Potthoff: First you're gonna start with triage or should I just start with? the wiki
+Jordan Potthoff: no comment means I will start really looking things.
+Bruce Rechichar: Yes, I jump into the wik.
+Jordan Potthoff: All right, cool quick overview of what work we've been working on for q1 and Status the first one client to your automation. So some people know this has been manually managed by a lot of client service and data science folks. So yeah, we've collaborated data science and Plant Services to automate that process based on spend and now we're working on making that available programmatically for some of the devs at first. I'll just be for support through that bugs or some of our tickets, but hopefully they could also enable us still some features based on tiering. That's on track. the next one we
+Jordan Potthoff: finishing our automation of onboarding right now everything internally for tutori in terms of web events and mobile events and whatnot are automated but there's still our programmatic apis that aren't automated we do its manually with Xander and Beeswax campaigns. And so we're working on basically automating that I think Xander's completely done and Beeswax is in process raise actually kind of spearheading this project, so I should actually be done. maybe getting next month. We'll start testing more next one to be DirecTV post log uploads. This is basically normal just like a normal bulk up load, but it's a one-off where we just get emailed these files. We have to manipulate them and re upload them tool and this kind of is just going to change our current bulk upload tool to take DirecTV post logs and each is working on that. It's on track. The next one some people have heard about the D answer. We actually just had a
+Jordan Potthoff: meeting with SRE on this and they're gonna be helping us get some kubernetes resources to host this and then we'll start using it for triage support. I think there were some reservations on security so we might pull you and Dan for more questions. I think you have also been pulled in before but we should ask deeper questions if we're going to expose this to the broader audience. And then the next one we Playbook organization gervin's leading this one particularly if we're going to use the answer for support tool. We need to make sure that our Confluence docs are really buttoned up. Especially the Run books. We're going to use it for triage support. So that's what jervin's really been painstakingly going through. So sorry if you spams you guys. In the near future with the questions on the status of those, but I think it's necessary.
+Jordan Potthoff: The next two are project ideas. I won't really go over because we haven't really put them on the roadmap as we've been working on the other ones, but the main or five main projects are on track.
+Scott Persinger: excellent finished early and props for attempting to automate your jobs away. Love it.
+Mister Ed: which
+Scott Persinger: Bruce is there more we done. That's it.
+Bruce Rechichar: That's it. We're done.
+Scott Persinger: All right, I love it. All we've reclaimed time now.
+Mister Ed: Yeah.
+Scott Persinger: We're ahead of Who is next campaign execution you got an eight minutes?
+Ryan Farjadi: All right, did you have anything you want to summarize with across buying an execution first? Otherwise, I'll just roll.
+Reno Brown: Go ahead and roll through.
+Scott Persinger: Sorry, just one brief thing. It would be good if people can characterize it's not just here's status ideal would be to characterize status against what we thought was the plan or we had or behind do we make changes right? But not just like here's the snapshot because probably a lot of people myself included won't have a existing sense of what the plan was? Okay. Sorry Ryan over to you.
+Ryan Farjadi: Yeah, so starting at the top here. We got the beeswax portion of retargeting in the campaign manager that was originally, kind of playing those carryover from Q4 a little bit, but originally planned to be released yesterday.
+Ryan Farjadi: basically final Testing stages we have a training plan with the buyers this week. And just kind of working through some remaining ticket items like setting budgets that can't be accommodated by the size of the audiences that you're trying to Target but should be kind of quick fixes and usable with more or less a happy bath.
+00:05:00
+Ryan Farjadi: On the other side with the self-service and Xander. We kind of have things in progress on the Xander side already and that's on track to continue through this quarter on the UI side. We are a little bit in the discovery phases for reusable components and stuff like that. But that is still looking good and on track and doesn't seem to likely to be a
+Ryan Farjadi: any sorts of delay for that project. moving down to Network contact assignments, we have kind of gone through the tech planning phase and we're really just in a finalizing review feedback with William based on how it's going to tie in with the inventory model and things like that. We expect to start work on it next week. That's
+Scott Persinger: How do we use that?
+Ryan Farjadi: This is basically just rule-based contact assignments today. We have contacts are only assignable at the network family level and you can kind of override them in specific networks, but there's use cases where you need to have specific contacts either for sending orders or sometimes differently for traffic as well for things like sports and…
+Scott Persinger: you have
+Ryan Farjadi: stuff like that.
+Ryan Farjadi: Yeah, so moving down the list to creative approvals.
+Scott Persinger: cool
+Ryan Farjadi: That's also on track we are nearing completion there's a little bit of fall on work to handle some things like certain company product categories don't need approval and shouldn't be sent so there's some work there involves kind of feeding in data from HubSpot and kind of making sure that we have back to the data and implementing some of that logic. But things are looking good there.
+Scott Persinger: Is there a API workflow thing that we are plugging into or is this something we're building? Holy which is
+Ryan Farjadi: No, I mean this is still basically just coming up with the emails that gets sent to the networks to I mean, there's a little bit in the sense that we have to provide them the exact creative going to run so we have to link them more or less to the creative in extreme reach And so there's some trickiness around getting that set up.
+Scott Persinger: Mm-hmm
+Ryan Farjadi: There's not an exact API to get that data, but more or less. We're just composing those emails. So that media Ops in the buyers don't have to.
+Scott Persinger: don't
+Ryan Farjadi: yeah, then continuing down to status notifications for task queues. So this initially started off kind of just having a way as we shift some of these workflows like order email sending and stuff like that to a task you in order being able to have that task, communicate back and update status that we can show it in the campaign manager that Got completed and is out of the way. We ended up kind of contextualizing that a little bit as a phase one and building out a phase two as some of the other kind of use cases came up for task use. So we early in the last month or so moved some jobs things like
+Ryan Farjadi: Clearance predictions and stuff like that some of these long running tasks that used to take place when you hit the send button or something like that or save on the booking form. Now we came to the conclusion that those might need a different kind of way of. polling or pushing status updates
+Ryan Farjadi: so that when those kind of asynchronous tasks complete that's kind of being scoped as a phase two and we're starting to work on that but haven't made much progress there yet.
+Ryan Farjadi: On a finance onboarding so we just kicked off this project yesterday. All that kind of product specs and design work should be completed there. We're starting the engineering Discovery and Tech planning and expect to start work on it next week.
+Ryan Farjadi: Then we got Xander set up. So we initially scoped out with the expectation that we were going to need a for retargeting but be just for General automation purposes and we canceled it when we found out that Solutions had an overlapping product or project and they already did it. So We canceled that one then we got. TTM implementation, so this is designed complete but we haven't started on the engineering side yet. So it's still pending the last topic that we don't have on the board yet, but there's this.
+00:10:00
+Ryan Farjadi: Shopify thing we built our app on this platform that they called liquid now, they released this thing called checkout extensibility. We originally thought we had some time based on their deprecation schedule to work through it and started getting feedback from our customers that they're ultimately making the migrations themselves because they want to get ahead of their deadline. So Shopify is kind of applicating in phases and we're like, we have, many months. We're good only to realize that our clients don't want to piecemeal migrate and So we're still working through and weighing where to kind of. prioritize this project
+Scott Persinger: Find great update. Jim liquid was a pretty amazing name. So understand why they might want to change it. Alrighty, we are on schedule campaign manager eight minutes.
+Peter Morawiec: All I am going to share your document. I pasted something from atlas there and annotated it somewhats. So this is us the quarters some of a medley of a lot of smaller enhancements improvements, but then also some sizable projects. I highlighted the larger initiatives in the frame them out in the boxes here.
+Reno Brown: can you blow that up Peter just like Yeah.
+Peter Morawiec: Are even more okay?
+Reno Brown: That's thank you.
+Peter Morawiec: Yeah, I'm repeating a couple of things from Ryan's presentation because we're sharing resources on the retargeting. So that's the items in green. as Brian mentioned the first one beeswax I think is at the door and then we're starting out of the bigger items we did ship the competitive rates chart in a couple of smaller things. You see there at the top. We did have one kind of interrupt come in. That's the sort tool sort of refactor where we now need to support date ranges on all rates. Which is throwing off the booking unit configurations project a little bit. I had to take a detour maybe two to three weeks.
+Peter Morawiec: We have a pretty sizable Tech that bucket, but that there's a couple of items that will slip into Q2 from that not to concerned since it was generally sort of time permitting. Yeah and the inventory selector improvements third item from the bottom. That is ongoing again. It's a kind of a bucket of smaller things one issue with that one is that the requirements have been sort of slow coming? And are still not fully ironed out in some cases. So there is a little bit of a risk there I suppose. Yeah, and then I'm kind of marking the last two items. It's potentially at risk. the weekly
+Scott Persinger: Peter don't make me give you my speech about improvements as the name of your project.
+Peter Morawiec: I talked to Evo about that. I mean I don't Okay.
+Scott Persinger: Okay, I'll go give my speech to Evo.
+Peter Morawiec: Yeah, I feel free to jump into the epics and you'll see it. It's really kind of spans a pretty wide range of things. I don't know digress weekly plan management. That's a project which is also somewhat of an improvement to the existing. Tool where we're adding all these new columns on both streaming and linear coming from variety of sources. We're also updating the deals with the column management. So that's going to be pretty big. We're just kicked it off and most likely this will go into Q2, but we have agreed to ship, sort of iteratively we will not kind of wait until it's all done. We'll try to kind of get it out in pieces. So at least we can get some of that out this quarter. Yeah, that's us.
+Scott Persinger: Okay, sweet We're ahead of schedule. Now Peter has the quarter feel like it's going.
+Peter Morawiec: to be honest, I mean not gonna lie Reno knows there are some frustrations with just sort of understanding. Of the full workload. Yeah, there's just a number of items that just didn't get we're sort of hammered out. I mean, we're still waiting on some design decisions and some things and some requirements, we thought we had them but then we got word from media buyers that at whatever the review sessions they kind of pushed back on some things. So yeah, but it is what it is. We're adjusting is necessary. But yeah, I think we had a bit too much to chew there so not going to hit it all but it working. Yeah.
+00:15:00
+Reno Brown: I think part of the complexity to you though. Is that we got this new big, sort of like UI shift change thing that were kind of doing and then I think product is trying to figure out how we align things we work on towards that thing but that's a little amorphous still at the time, so it's just late. it's just sort of
+Peter Morawiec: Yeah, I think. That the two aspects to is Eva Stosur the new so right he sort of onboarding. So he doesn't have full understanding of some of the complexity. Sometimes he feels like something will be very simple. Whereas in fact it's a, very sizable change that he's asking for and yeah, I think he'd been trying to kind of cram as much as possible into the quarter to sort of allow for the self-serve to Q2 to be sort of in freed up for this magical new experience. We're supposed to build but yeah.
+Scott Persinger: Okay, cool. Thank you Excellent.
+Charlie Qin: Hey folks. So first thing we knocked out on the quarter was our redshift migration. This concludes all of mints data sets that we directly use off of redshift and so specifically in q1. It was a linear predicted performance also known as CPX as well as the streaming predicted performance.
+Scott Persinger: also known as CPX
+Charlie Qin: next yes there. Yeah, the CPX is now instead of this weird acronym. It's now going to be called predicted performance. So I'm trying to put that verbiage everywhere. So people understand but
+Charlie Qin: the next up is the streaming media plan generator. We have the initial MVP code complete. We are looking to deploy hopefully to staging by end of today. And then if QA goes which should be a day. We should release early next week. This is an house internal beta that we will be running with our media buyers to get feedback. And the sort of after that is going to be the genre exclusions feature on streaming media plan generator. This project was targeted to sort of release by end of q1. So we are a little bit ahead of the Curve. Which is a lot of good collaboration with data science and mint.
+Charlie Qin: The next project is clearance management a little bit of a generic title, but it is supposed to be sort of at the initiative level that encapsulates all of our work to improve the linear clearance prediction. And so the two things that are in progress right now is we are moving our existing linear clearance model over to the new ml Ops cookie cutter repo that data plot developed. Sean is on that project. We are hoping to close that out by end of week and then Sean will then begin a new product Part of the project which is to develop an initial model to predict Remnant inventory again. These are very close Partnerships with data science. And so, that's What it is and…
+Jim Lyndon: I do real quick Charlie in light of bragging about being ahead of the curve.
+Charlie Qin: then project flywheel.
+Charlie Qin: Yeah.
+Jim Lyndon: This particular project data science is Deep In The Weeds on an R&D and my gut feels like it's actually going to take a little bit longer than projected. They're really working through some stuff and I think yourself a lot of question marks still what they're trying to figure out how best to I think the engineering stuff will be on target for sure. But yet there's some question marks there. So we'll see if that trucks or if it goes over but
+Charlie Qin: Yeah, and then project wel. This is the code name for what some people may know as tatare knowledge. It's a very very large initiative. It's sort of targeted probably to have a lot of parts and be a big project that mint is going to work on the entire year. But the first part of the project that Brad yinger is working on is to develop. and optimize a sort of
+00:20:00
+Charlie Qin: neural network or GNN model building pipeline. This is basically taking Jay Young from data science's work and sort of putting it in a place where one that we're optimizing cost and as well as optimizing our available resources without needing to jump to another tier of compute or to just massively scale out horizontally. this particular part of the project is on track to wrap up by end of q1 and we are making good Headway and it's a little Bit of sort of R&D land as we're trying to figure out how to marry.
+Charlie Qin: Some underlying libraries with our existing infrastructure specifically, making use of Delta tables rather than trying to spin up a graph specific database like neo4j but this is ongoing but it is on track.
+Jim Lyndon: I will add here to that. We actually are looking good on the R&D side. We've got some results this week that Ian is trying to put together in some slides. So he's told me that he might be ready to share that prices out. I might be able to share that in the tech staff next week Scott. So hopefully we'll be there in time. So
+Scott Persinger: That's awesome.
+Scott Persinger: All…
+Toussaint Minett: cool
+Scott Persinger: That was the intelligence side sweet.
+Jim Lyndon: Yeah.
+Toussaint Minett: So for insights reporting a company performance API shipped that feature is actually funding both the filters enhancements listed here and the flex charting intives filters enhancements. We're hoping to have that launched next week. We're kind of in a QA right now and then also want to kind of acknowledge that we're dealing with a bunch of overlapping leave and PTO right now. So just having a really shift folks and stay Nimble to kind of keep all this stuff on track. The audience Dimensions is next up partnership with the measurement team to get this across the finish line. So hoping to have that really quickly fast follow to filters enhancements. Saved reports V1, Staffing permitting that that's kind of the one that's falling a little bit lowest from a priority perspective, but we're hoping to get that launched in, before the end of March.
+Toussaint Minett: Flex charting charts and reports you'll hear phrased but we're expecting to get that out the door mid March very good progress. So far a lot of common components and as we're going along working with design to figure out longer term to kind of paradigms will use for visualizing charts. But the two bodies work the filters enhancements and flex charting aims to kind of really shift with the performance product it looks So looking forward to seeing that stuff land and in the last thing that kind of mid quarter is work to support trial accounts the demo growth through performance reports. We did have to shift Nate over to support filters enhancements when Brian want to leave but he's now back on that full-time and we're hoping conservative estimates in the Mars, but we're hoping to get going on that work right away.
+Scott Persinger: Okay, and can you characterize what the work is?
+Toussaint Minett: The trial accounts works. So we'll be adding a number of generators that would eventually pipe the date over into Once we have it in data We're gonna add in a click house Library essentially that pulls in the data from S3 and essentially filters it into the same kind of API contract that we use for everything else to provide dashboard and reports and throughout the product so underneath it should Hopefully make it a lot more extensible and easier to catch if there's any drift in the product and kind of prevent the circumstances that we saw starting out Q q1 with the sales and marketing.
+Scott Persinger: Sprites So this is filling the click house reporting whole in the current trial accounts experience Scott
+Toussaint Minett: Yeah. Yeah.
+Reno Brown: It to sound question from Mala. He says yeah. Okay, right answered. I was gonna let you answer but yeah, it's curated data. It's It's like fixed data, correct.
+Toussaint Minett: It'll heavily leverage the existing infra that Tony built up but make it so it's a little bit more sustainable when we keep building that on top of the click House Performance report API.
+Scott Persinger: performance always looks good in the trial account. I hope so.
+Jim Lyndon: Thanks Toussaint. That's it.
+Scott Persinger: Okay. Thank you guys. That's great. We're rocking and rolling now. All right measurement you're up.
+00:25:00
+Mala Munisamy: And I knew you want to go first and then Kendrick and go through the core measurement after.
+Ani Govindan: Alright, this is for measurement calc. so Let me see.
+Ani Govindan: Okay, two of the projects where change in scope the first one here.
+Ani Govindan: Let me refresh make sure that I have all them it should be good. Yeah the first one here the streaming hourly count migration. This was a scope creep. and we're working on the migration for a data streaming hourly migration count migration initially. We thought this is a data set that we could get away with without migrating this to data Pricks because CSR covers most of the data set for streaming and we could have consumers use that data set but unfortunately to provide more time for other teams to duplicate off of this data set we have take this on to migrate this to date a breaks and this is a lower lift and we are on target to migrate this so we are actively working on it. We are on the final stages of validation. Hopefully this week or next week. We would be able to get this data set migrated over.
+Ani Govindan: So that's the first one here. Halo effect this is more of a discovery project. This is to figure out what any sales that's happening outside of clients website, be it Amazon sale. And so this is more of Discovery work from product and DS we haven't had a chance to work on this. It's pretty much cost at this moment. But once communal IP goes out we might get into Discovery discussions for this.
+Ani Govindan: that's this one. The next one is streaming left CSR V2 performance Improvement. This project came about with our launch of audience demographic. The one that insights and Reporting are working on right now to show on the dashboard with multiple Dimensions when we started finish the work for audience demographic. We saw that the final data set that we are providing to dashboard the CSR course streaming report data set was quite slow. Then what was expected right now streaming lift runs within three hours which includes the CSR data set, but with the introduction of CSR V2 with the new dimension, it puts a dent on the performance. So we are tracking this as a separate project. again past this for a bit to focus on communal IP, but we are on track. We will be picking this back up right now targeted for March completion. We have a plan forward and we will be
+Ani Govindan: Making it up and we are on target for this one operational excellence. This is more of an ongoing project. This is an initiative that would Spill multiple quarters, so we started on the work in more of alignment and discovery on how we want to do this, be it Playbook updates and a great expectation changes and other data quality checks throughout the pipeline. We have them ticketed out but chunk of the work I expect this to spill over into Q2.
+Scott Persinger: Okay, so this needs to be chunked into some milestones and have Milestones one here. Yeah.
+Ani Govindan: Yeah. Definitely. Yeah.
+Ani Govindan: The next one here is another migration project RF histogram. We finished the region frequency migration. This is again a blocker for our redshift downsizing. So we had to introduce this. We are actively working on it close to validation at this moment and we would be on track for shipping it March mid March, I would think. Linear left. This is the top funnel left migration. We finished the down funnel lift migration, which is a spot level metrics. This is the last Pipeline on the linear side that needs to be migrated to databricks On Target. we have the rollout plan and everything ready to go. This is a conservative estimate of eight Mar. We would probably be launching sooner. by end of web
+Ani Govindan: This is the other demographic project for audience for reach and frequency. This Clara from core came in and worked on this project and we are in the last stages of validation. Hoping to ship this Worst case next week. But we are good on that front as well. The next one here is replace IPS with you you ID is nothing but it's marked as past.
+00:30:00
+Mala Munisamy: This is just me Henry lost any.
+Scott Persinger: I think she
+Mala Munisamy: Us we passed herself.
+Ani Govindan: I Yeah,…
+Reno Brown: is
+Ani Govindan: the project is fast, and that's a good one. Yeah, so that's DCR and it's Poss because I mean we are still working internally with the discussions. This is more waiting for the core data sets to be available for Target to pick that on so Lucas and Henry are working on the bronze and silver data sets to replace IPS. And once we have that in place, we would pick that up and move forward with it. This is expected.
+Scott Persinger: Okay, can you annotate the project? So that's clear?
+Ani Govindan: Yeah about the DCR itself.
+Scott Persinger: The fact that this is meant this is the core or that sorry the gold level data set. Replace IPS with uid.
+Ani Govindan: Yeah. Yeah I can.
+Scott Persinger: I mean that's happening in multiple levels in the stack. And this dot project it looks like it's the whole thing.
+Ani Govindan: totally Yeah, yeah, I'll definitely go in and add more details here. That's a valid concern. Yeah, this is just for the gold layer data set and like I said we are waiting for
+Ani Govindan: Yeah, this would have multiple Milestones. Yeah, like you mentioned Mala. This would just be focusing on the streaming side of things. I mean streaming includes multiple gold data sets like web bibbons combined impression all those data sets. But yeah to mala's point I have to add more details to Make this more clear. Yeah, totally agree.
+Ani Govindan: The next one here is communal IP scaling. This is a huge effort. This is being a partnership with yes. Jim was talking about in mint project anything involving DS. There's little bit of unknowns involved and with communal IP right. Now. What we are noticing is app even side of things have a bigger swing when we filter out the communal The numbers that is saying you're seeing a bigger swing with app events, which we didn't expect and that's a scope creep that we are anticipating. at this time, I'm still calling it on track for February, but just want to call out that's a piece that DSS working on it and something to keep in mind if something changes along the timeline, I would go ahead.
+Ani Govindan: And update this but that's where we are with communal IP scaling. The next one we ship this programmatic bi. Yeah. this project started off when programmatic was owned by Ryan's team and James was working on it, and we were able to shift this couple weeks back. Ship email yet to go out for this one, but I have a draft sent out to us. look forward for the ship email for this a real-time So real-time RF is the last one is the Discovery and we are working on it. This is a close partnership with insights and Reporting again on track. This is just a discovery project. Handing it off to Henry.
+Scott Persinger: 
+Henry Zhang: It's awesome.
+Henry Zhang: All right. So for the core projects some of these removed from Q4 and there but we'll follow up there. So the first primary project is the DCR Milestone 2. So this bronze and silver this will include web events and basically all our core Prime pilot pipelines and this for Browns and silver layer to use synthetic ID and
+Henry Zhang: This is on track for originally spilled from Q4. There's some delays with really related to shipping from staging to prod and we're still working on that but we are moving also the updating of these silver jobs. from the coxide, so basically anything that is the precursor to let's say web events and after that combined up events and that's gonna be also part of this Milestone shifted up from Austin three.
+00:35:00
+Scott Persinger: School
+Henry Zhang: There have been some short-term reliability enhancements related to S3 reporting. So these are the things that have been gone in chime and things like that related to recent incidents and these are both done on the enhancement side and the learning side for reliability. And so for example, that's the report monitors in Philo.
+Henry Zhang: Mister thing for DCR Milestone to the non-critical data. So this would be partner data like LG Alfonso Samba Vizio. These things are through currently backlogged where lower priority but should not be blocking anything as far as for shipping data to the calcite. We are working with Samba right now and for retargeting and then also Xander and these other data sets but shouldn't be blocking for a measurement use cases. Another one is the q1 for q1 we have the DCR Mouse part of DCR Madison too is that we need to move the pixels from the current Atari Cloud front domain over to our new tatari TV tracking domain. This is a collaboration with us re Patrick's been working as us on this.
+Henry Zhang: How we are going to be able to use recovery frightening where they're currently collaborative. They're gonna collaborate with us on the clean room as well. So this has a few steps to move. the pixel domain which will require coordination with our partners because they do need to reapprove our pixel when we do change the domain so We'll have to talk to them about that the next view are all on S3 foundations work and this is the new product push to.
+Henry Zhang: Enable more S3 reporting use cases for smaller and longer tail clients. These are not started but we have our product Discovery done and the tech plans regarding each Milestone started out and Jeff Jeff's been working on this and he's been splitting it up into quarter size chunks for S3 reporting. Next one IPv So IPv6 isn't required right now to start using DCR or synthetic ID inside measurement. It will be required before we remove IP as a field entirely but it shouldn't be blocker. This has been G prioritize for this quarter. We'll get to this next quarter and ID likely also
+Henry Zhang: Be moving the scope of some of the IP joining to be done inside the DCR instead of being done inside measurement on the the enrichment based on IP originally for Q4. And again, this is going to be pushed to Milestone combined with Milestone for q1. This is basically moving the glip portion where we use our MAX Line Azure data sets all into the DCR from the tatari side. And so when the charts I received the data we will have this on track should be shipped by next week q1 also for the monitoring observability and this is more starting on how do we operate?
+Henry Zhang: This long term and John recently just published a plan and we did a tech one review. So we have the plan and for how we're gonna enable the operational solution For backfills and any sort of incident response for the new Vault infrastructure. someone Vizio this is our partner Integrations for
+Henry Zhang: For retargeting effectively, and this is on track but not started. We haven't still focusing more on Milestone two but we're already in talks with our partners and this will also depend on our partners so
+00:40:00
+Henry Zhang: And then finally ongoing work on the maintenance side. We have observability and Great Expectations. This is so that we can catch, errors before our clients do and this is been a push from data platform. So something that's continuously in progress in something that we're gonna continue doing until we have all our pipelines having data quality checks so that we know when we have issues before we be our clients certainly notifying us and then finally the commscore ingestion pipeline to use S3 and FTP. This is another reliability thing from column score. So hopefully we'll resolve some of our issues regarding the STDs that are being followed and that's not getting commscore data or other issues like that.
+Scott Persinger: Okay, Thank you we're five minutes behind You're up five minutes.
+Scott Idler: I get nine minutes, don't I?
+Scott Persinger: I'm in a lesser.
+Scott Idler: I'm doing good.
+Scott Persinger: You did apply.
+Scott Persinger: Yeah, you can shortchange data plug.
+Scott Idler: Come on, man.
+Scott Idler: All Alright, so I'm going to kind of wing it for data platform.
+Scott Idler: We have three kind of year-long roadmaps that we've been working on. I know Scott loves improved, but we're have improved filo back end of mature AWS account configuration and reorganize terraform to Naval automation as our three big. Pillars in the top one we are right now breaking off into its own service and getting our back data into that in case you wonder what It means grabbing. Everybody's login information is already been pulled out and saved with its keys and kept secure and Eventually off-service will be the de facto entry point for all things that tutari on how often to any one of our systems that we use on this is backed by Optus. So this project is going along probably deliver in this quarter and then have some follow-on work that will be discussed later. The other thing is we are.
+Scott Idler: Trying to get alignment with the Philo devs on some architectural decisions that's going to inform some of our later quarters. So we have an ongoing effort where we have those discussions right down the documentation about what our architectural decisions are going forward so that we can then move on those decisions in the future that's ongoing and finally we are exploring ephemeral environments a bunch of ani and mala's work on moving data out of the existing RDS instance has made that database strength considerably and we're looking at the ability to spend those things up on a whim perhaps we'd be able to supply a back-end environment both with Philo and the database with the migrations done and then be able to use that in some ways that make the current terrible staging environment problems much easier to deal with so we have a committed to that we are in the midst of kind of confirming if we're going to be able to do that or not.
+Scott Idler: If we are then that will add another piece of work to our plate. So we're close on figuring out what we're going to do there.
+Scott Persinger: Scott faster, we're running out of town.
+Scott Idler: Sorry, and then the last two I'll speed up through these is we are getting ready to have our accounts Stamped Out With Better networking and all the security best practices. This will eventually roll into our infrastructure. But in this quarter, we're getting all that work in place. The last one is the one that is at risk, which it is very difficult for us to figure out how we're gonna be able to do some terraform that's gonna allow other people to do it. So I may have to punt this when you turn out my attention somewhere else. Yes, we questions about that moving on to data platform. I was not able to find their atlas items with the quarter tagged in the current Atlas system, but I was privy to their kind of prioritization. So I will go over that. If you have questions, I would just say look at the little section underneath there to get an idea. So they decentralizing data Lake prod permission. Some teams can really own their own data sets. They are working.
+Scott Idler: CI improvements for all star spark parallelizing unit tests graceful handling of package updates Etc. And finally there are working on introducing a unified migration tool. I think this is across several different database systems that they want to have there were other things on the list, but it wasn't really clear if they had committed to those in q1 yet or not. So That is my update for data platform
+00:45:00
+Scott Persinger: Cool the thank you Scott for doing your best to cover. All right, Dan as fast as you can.
+Mister Ed: All right there you guys hear me? All right shortly,…
+Scott Persinger: Yep.
+Mister Ed: we are focusing in on basically four sort of key areas. On area one I'm going to kind of group it together and just call it jira Automation. And this is integrating a lot of different systems with jira in order to make ticketing and creation on automatic good example is we recently created some jira automations when a deal closes automatically spins up and take it with a company information populated and that populates the ticket in the HubSpot.
+Mister Ed: directory Integrations. This is sort of continuation of the main theme of inscreening AWS workday OCTA getting our back ready right now. We're down to the team and org levels. So we're starting to take in information from work day about teams and roles that people are assigned to inside of the company and creating permissions. That's for those roles individually. Inventory automation. This is a big one for Budget planning. Basically taking track of all of the inventory. We've currently got out who it's assigned to an overlaying it on top of the organizational data we have so we can start to plan out Hardware refreshes and give some kind of guidance to the business and how much it'll cost to refresh engineering laptops, that are three years older, that sort of thing so not super sexy work, but very valuable to the business email security and sort of
+Mister Ed: The key security focused right now locking down getting our email infrastructure more secured and more hardened against fishing fishing. We use email for a lot of order management and making sure that we've got really good controls around that and right now that means upgrading a lot of filters because people are creating filters for inbound email to go into folders for clients. We're going to need to update it's one of those in order to get DeMark in place and we're working with teams right now to get those updated hats off to I'm Bruce and everybody else. He's helped us out with that figuring out who all needed to get those filters up to date and what the process for that would look like. That was a huge help and I really appreciate it. And I think I've cleared with a minute and a half to release back to the crowd.
+Scott Persinger: Thank you everybody. That was excellent Mala. Are we ready for the metrics?
+Mala Munisamy: I think so. It's a perfect timing 10 minutes.
+Scott Persinger: Yeah, amazing.
+Mala Munisamy: They got all the 10 minutes back.
+Mister Ed: Yes.
+Mala Munisamy: All right. Let me share my window.
+Mala Munisamy: He'll start to see my screen. So just a context as well. There is a ton of people helped here. And this is sitting on a lot of the work that we already done. Mainly though Bruce's card idler and I'm probably missing few folks here. thank you for all of the data Gathering here. So I wanted to kind of go through this is our first so if anything we want to see differently we can always adjust when my main goal is to go over what we think would be the right engineering metrics and dashboard that we want to look at collectively every month. And then the main thing is get a Baseline and then measure the progress towards our entering goals primarily. So I bucketed under this kind of five buckets the last City quality see that or…
+Scott Persinger: Great.
+Mala Munisamy: guilt and Asian we probably won't look at Seaside in our guilt today. I don't have any data, but potentially we can add them as we start to look at them.
+Mala Munisamy: Sounds good. this is the velocity Trend. So this is the number of deployments that is it too small for everyone. We actually do a slideshow…
+Scott Persinger: Yeah.
+Mala Munisamy: then I won't be able to see you all but that's fine. So this is the deployment strength where Trend over to over a year more than a year, I guess so the data that we've been Gathering so we're Midway into February so we're not fully there. but I expect this to go up and catch up to January or prayer, but you can see the trend and you can see the trend over months. It's all aggregated by month.
+Mala Munisamy: Any questions and then this is the breakdown by team as well. We wouldn't do that today. But at some point in the future, I want every team to bring in these metrics so we can look at it together Scott we needed and now her for that but we can consider, kind of going over the stats by team as well.
+Scott Persinger: Maybe I don't know how much deployments by team. Tells you and in comparative way …
+00:50:00
+Mala Munisamy: Yes.
+Scott Persinger: if I was gonna work with the manager. I feel like what I would really want to know is what's their trend line for deployments probably more than I mean, maybe there's some comparison if you have similar peer teams that are doing kind of similar kinds of work, but I Expected varies a lot, by kind of where you are on the stack.
+Mala Munisamy: Agree, I wanted to clarify I didn't mean we're not going to compare teams by teams. But basically just looking at the trend and the progress that matters for the team that looking at it pristine View.
+Scott Persinger: Okay, yeah.
+Mala Munisamy: And what matters is what's their specific goals and Trends not, comparing and wanting
+Scott Persinger: Yeah, I could see a plus minus by team right where you're like, this team is Five percent from last month this team is down and…
+Mala Munisamy: yeah.
+Scott Persinger: then kind of a discussion. Why are you down? Is it natural? Very ability. Is there something more, to it. I was kind of looking at these and wondering Is there correlation with shift emails right with Customer visible features. Would that be an interesting annotation? On deployments,…
+Mala Munisamy: yeah, so Yeah,…
+Scott Persinger: .
+Mala Munisamy: absolutely. I don't have the data pulled in but I can show you a bit when we get to kind of Atlas and the features that we're shipping so it's not integrated but stay tuned for that. I'm looking for that data. It's not there today, but I can at least so some signals on how this is correlating with the shift emails and what may come down in our quite
+Scott Persinger: Yeah, 60 Engineers per shift email in January. we had more than that.
+Mala Munisamy: yeah, so it's a number of so this to clarify this starts. The first steps is like I said February is only half month and…
+Scott Persinger: Yeah.
+Mala Munisamy: it makes sense. But I wanted to kind of show the trend as well on how we're doing. That's just a number of deployments right the same thing the Feb and Jen number here if you see my mouse over that's
+Scott Persinger: you're right. We only have one Shipton generator. Okay.
+Mala Munisamy: Yeah, that's basically a number of deployments as well. This is but this just me going into Charlie and Counting shift emails. So we had two in February. I think from buying an execution. We had one in January from measurement. I know there is a couple shift emails or Cuda. So this number may change.
+Scott Persinger: I see four in email. in February for yeah, yeah.
+Jim Lyndon: Yeah, we have four. I'm seeing the same.
+Mala Munisamy: Okay, so my number is wrong.
+Scott Persinger: Boy salty data.
+Mala Munisamy: So I looked at internally. you all cross-checking my number.
+Scott Persinger: We're already off the rails.
+Mala Munisamy: Thank you for keeping me honest there the soldier…
+Scott Persinger: Yeah, between two and…
+Mala Munisamy: until we
+Scott Persinger: I'm good with spotting that difference. Yeah. It's right up my wheelhouse.
+Mala Munisamy: All right, I'm Gonna Keep moving real quick if there's no question on the deployments.
+Scott Persinger: I mean are we gonna catch up into appointments? I mean February is a short month. So that's part of the problem, but
+Mala Munisamy: My guess is there is already few that I know it's coming down in the pipe and…
+Scott Persinger: Yeah, we're only Midway.
+Mala Munisamy: then we see it.
+Scott Persinger: We're only Midway through the months. Okay.
+Mala Munisamy: Yes one and then also when we see that class statuses and I think you can see there is probably a few that is completed hasn't had a shipped him. Also. This number will go up if we look at it later in the month.
+Scott Persinger: Yeah, we should probably have the plotted against PTO calendar also.
+Mala Munisamy: True you're making it more complicated. I'm trying to keep it.
+Scott Persinger: Right now no, it's good.
+Scott Persinger: It's good. I like it.
+Mala Munisamy: All right,…
+Mala Munisamy: let's keep moving only four minutes. So quality Bruce. Do you want to take this over here quick why so around this?
+Bruce Rechichar: Sorry, so the quick updates are looking at the data quality and tickets on the left the multicolored graph. That's basically the number of triage tickets that have some type of data quality issue whether the data was delayed whether the data was incorrect or accuracy. The different colors are the different types of tickets. So you can see the trend Canada goes up and down month over month and then the different categories kind of say stay relative and percentage and then the blue chart on the right is engineering incidents and we've only had one in January it was so everybody on this calls probably more familiar with the Bluegrass versus the multicolored graph, but the multicolor craft is the ones that we work with data science on trying to make sure our data quality is correct.
+Mala Munisamy: Yeah, and…
+Scott Persinger: APS
+Mala Munisamy: I also to call a Bruce and I are working and kind of cleaning up and categorizing so we can have some more data points and troubleshooting this but this is a single view we have so this number on the chart is some more wrong. It's looking at last month, but we haven't had no incidents so far in February so knock the wood, but our trend is being pretty stable since October last year.
+00:55:00
+Mala Munisamy: All So my kind of bucketed this under renoation or…
+Scott Persinger: cool
+Mala Munisamy: this is sort of more measuring what's coming down, but also
+Mala Munisamy: Also the time they were spending between interrupt versus kind of projects and roadmap and metrics projects that seems to reflect our kind of past experience as well. And there's a ton of one hasn't started or passed. So just a view on where we are. If you click on the link, I'm not going to do that now for the interest of time, but if you click on this deck this link, you'll see the timeline view on the
+Mala Munisamy: plus some still trying to make sense of a class to indicate this type of data skipping on to it. So these are the projects already shipped in q1. And again, I just filtered by a date projects that are completed in Atlas with the q1 label. I think this reflected the four that we talked about but There The S3 reports is missing even just from my view programmatic. We haven't shown the sift email. So there's the status a little skewed. I think there's probably seven that's completed from just me and Counting.
+Scott Persinger: cool
+Mala Munisamy: And then these are the interrupt versus plan again, not a perfect, but we have two ways that we're looking at it. I haven't correlated this yet things Bruce for this jira dashboard, but basically this one on the right is telling you a number of ticket came from Dart books. And then where they landed from your site and then the one on the left is telling with assumption with telling basically number of tickets on the board that do not have a big now for q1. This is based on that assumption. All of our plan projects has an epic so that may not be true. But there's definitely a lot of fine-tuning that needs to be done. This is so for what the data that I have.
+Scott Persinger: Yeah, this is great moment. I think it's a great takeaway for this group. I like that model of just saying let's try to get epics for everything and connect yours to epics for project work and then we can just be like everything else must have been an interrupt not perfect, but it feels like directionally that would.
+Ani Govindan: quick question
+Scott Idler: Yeah, that's where I've been operating since Mark Ryan's set that up. And so that would work perfectly for what I have.
+Mala Munisamy: awesome
+Ani Govindan: So it's that something that we want to do going forward anything unplanned. It's without an epic anything that's plan work goes into an epic. So we track this better.
+Mala Munisamy: Yeah, that would be So we all be consistent on kind of the data is not skewed so can because it's a simplest two one that we could do. Then we can elaborate later on, the amount of time we're spending but that's more complicated with every project and everything you do that's differently on kind of their estimations and…
+Scott Persinger: Yeah, cool.
+Mala Munisamy: so forth.
+Scott Persinger: Okay, that was great.
+Mala Munisamy: 
+Scott Persinger: You're gonna get talked about or health. We're over.
+Mala Munisamy: I had no I don't have anything…
+Mala Munisamy: but I just wanted to say on our place all around the article that I do want I'll talk to offline. But I do want to kind of look at it perhaps the attrition and so forth, but there's nothing there anyway,…
+Scott Persinger: okay placeholder
+Scott Persinger: Yeah.
+Mala Munisamy: but this is queuing at what we can look at it.
+Scott Persinger: I like I appreciate the placeholder Mala. Thank That was Excellently prepared and great rundown on the metrics. I feel like we were getting usable out of that effort and great everybody. A tight hour and two minutes. Thank you all. See you soon.
+Jim Lyndon: 
+Mala Munisamy: myself
+Jordan Potthoff: Thanks, everyone.
+Peter Morawiec: Thanks, so bye.
+Meeting ended after 01:03:45 👋
+

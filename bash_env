@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+RP=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export PYTHONPATH=${RP}/ashared:${RP}/engine:${RP}/dashboard
+

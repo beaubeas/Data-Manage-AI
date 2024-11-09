@@ -1,0 +1,416 @@
+You will be doing a demo of this Agent using text to speech and the voice announcer. whenever I ask you to play something for the users use the generate_speech_file_from_text function, to play the audio. If I put something in parenthesis it is because it is for your information only to craft the communication it is not to be played back directly.
+
+Start out by announcing that you will be demonstrating the My Ashisuto Hanbai Supercog Agent. For English speakers the complete phrase  translates to my sales assistant. Tell the audience that Agents in Supercog have general purpose "Agent" instructions, as well as more specific user instructions. tell the audience Here are Myashisuto's Agent Instructions: You are a Supercog assistant implementing a customer relational intelligence system. This system enables sales teams, product teams, and executives to uncover unmet customer needs, identify novel product features and functions, target customer personas, and analyze competitive positioning. By leveraging customer lensing in speech analysis, the system translates recorded interactions between salespeople and customers into valuable insights about customer dialogue, emotions, and sentiments. [SHORT PAUSE: ] Tell the audience that the first step of the demo will translate the speech into text for further analysis and will take about 15 seconds. say that the Agent is now analyzing the file.
+
+Extract text from audio file
+- Use the "AromaBit.mp3" file
+- Generate text from this file starting at timestamp 16:30 for 300 seconds
+
+[LONG PAUSE: Wait for text generation to complete]
+
+tell the Audience "I will now playback some of the sales dialogue to give you an idea of the dialogue we are analyzing". 
+
+- Now play back "AromaBit.mp3" starting at timestamp 16:30 for 26 seconds
+
+Tell the user that the Agent is analyzing the text for sentiment.
+
+Analyze text for sentiment
+- Using your own capabilities (don't call a function) Identify the number of speakers. 
+
+- Using your own capabilities (don't call a function) Analyze the generated text for the sentiment of the speakers and how it changes during the course of the recorded text.
+
+[LONG PAUSE: Wait for sentiment analysis to finish]
+
+display your findings on sentiment analysis and number of speakers. play this to the user as well.
+
+Try to correlate the position in seconds of when each speaker starts or stops speaking and their sentiment for that part when they are speaking. 
+
+Show me this in a markdown table. but have at least a column for time a column for speaker a column for the speakers sentiment during the time and any progression or change in sentiment during that time and a column with the content of the time slice. just a markdown table.
+
+[LONG PAUSE: Wait for speaker identification to be done]
+
+tell the audience that you have just constructed a time sequenced table of speaker and their sentiment that can be viewed in the chat window.
+
+Finally give the audience a summary of what you have done in this demo.
+
+
+
+I have an issue with a python system I have developed that
+
+
+class TextToSpeechTool(ToolFactory):
+ def generate_speech_file_from_text_(self, voice: str, text: str) -> str:
+        """
+        Generate speech from the given text using OpenAI's Text-to-Speech API and save it to a file.
+
+        :param voice: str one of: alloy, echo, fable, onyx, nova, and shimmer
+        :param text: str
+            The text to be converted to speech.
+        :return: str
+            The URL of the generated audio file.
+        """
+        try:
+            client = OpenAI(api_key=self.openai_api_key)
+            response = client.audio.speech.create(
+                model="tts-1",
+                voice=voice,
+                input=text,
+            )
+            audio_data = response.content
+            print(f"Audio data type: {type(audio_data)}, length: {len(audio_data)} bytes")
+            
+            # Generate a unique filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"speech_{voice}_{timestamp}.mp3"
+            
+            # Define the path where the file will be saved
+            save_path = os.path.join("audio", filename)
+            print(f"Audio file path: {save_path}")
+            
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            
+            # Write the raw audio data directly to file
+            with open(save_path, 'wb') as f:
+                f.write(audio_data)
+            
+            # Verify file existence and size
+            if os.path.exists(save_path):
+                file_size = os.path.getsize(save_path)
+                print(f"File exists. Size: {file_size} bytes")
+                
+                if file_size == 0:
+                    raise ValueError("File was created but is empty")
+                
+                # Upload to S3
+                raw_url = self.run_context.upload_user_file_to_s3(
+                    file_name=filename,
+                    original_folder="audio",
+                    mime_type="audio/mpeg"
+                )
+                print(f"generate_speech_file_from_text:Speech has been saved successfull:Raw_url -> {raw_url}")
+                # Get the correct URL
+                audio_url = self.run_context.get_file_url(filename, "audio")
+                print(f"generate_speech_file_from_text: correct URL -> {audio_url}")
+                                
+                # Clean up the local file after successful upload
+                os.remove(save_path)
+                print(f"generate_speech_file_from_text:Local file removed -> {save_path}")
+                
+                # Return the URL as a JSON string
+                return json.dumps({
+                    "content_type": "audio/mpeg",
+                    "audio_url": audio_url.get("url")
+                })
+            else:
+                raise FileNotFoundError(f"File does not exist after attempted write: {save_path}")
+
+        except Exception as e:
+            error_message = f"Error generating speech: {str(e)}"
+            print(error_message)
+            return json.dumps({"error": error_message})
+
+
+reflex code:
+
+def audio_block(url, json):
+    return rx.vstack(
+        #rx.text(f"Debug - URL type: {type(url)}"),
+        #rx.text(f"Debug - URL value: {url}"),
+        #rx.text(f"Debug - URL as string: {url_str}"),
+        json_block(json),
+        rx.html(url),
+        spacing="4",
+        align_items="center",
+    )
+
+class State():
+    def _append_audio_output(self, answer:Answer) ->bool:
+        try:
+            answer.audio_results = True
+            try:
+                answer.audio_url = answer.tool_json.get("audio_url").get("url")
+            except:
+                answer.audio_url = answer.tool_json.get("audio_url")
+
+            audio_id = f"audio_{hash(answer.audio_url)}"  # Generate a unique ID for each audio element
+            answer.audio_url = f"""
+            <audio id="{audio_id}" controls autoplay style="width: 400px; height: 40px; border-radius: 20px;">
+                <source src="{answer.audio_url}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <script>
+                document.getElementById('{audio_id}').play().catch(function(error) {{
+                    console.log('Autoplay was prevented: ', error);
+                    // You might want to show a play button or message to the user here
+                }});
+            </script>
+            """
+            return True
+        except Exception as e:
+            print(f"State: tool output xml: An error occurred: {e}")
+        return False
+
+
+
+hi, currently i have a system that lets people build Agents that perform tasks for them. The agents are powered by LLM API calls that can call tools in the process of accomplishing their tasks. the Agents run in a separate service from the gui front end. In that system I have developed a speech tool. It translates text both from the LLM output and from tool output into speech files which I then playback on the front end. the audio players in this scheme are created as reflex components in a chat window of the GUI.
+
+The problem with this approach os that the speech playback is not synchronus with the loop of the agent. once it has passed the speech file off to be played another file could get generated by the agent and then these will both be played at the same time.
+
+So I would like to rearchitect things so there is ony one playback component that will synchronize all speech. Each speech file to be played will go into a queue on the GUI end of things probably written in javascript and the synchronus audio player will pull things off the queue and play then synchronusly.
+
+here are the respective parts of my system that are relevant. I would like you to propose code that will handle this. I have already put a component in place which is where I want the dedicated synchronus audio player to go. ok here are the components:
+
+1. The agent function that handles sending already generated speech files to the front end players:
+
+    def _append_audio_output(self, answer:Answer) ->bool:
+        try:
+            answer.audio_results = True
+            try:
+                answer.audio_url = answer.tool_json.get("audio_url").get("url")
+            except:
+                answer.audio_url = answer.tool_json.get("audio_url")
+
+            audio_id = f"audio_{hash(answer.audio_url)}"  # Generate a unique ID for each audio element
+            answer.audio_url = f"""
+            <audio id="{audio_id}" controls autoplay style="width: 300px; height: 25px; border-radius: 20px;">
+                <source src="{answer.audio_url}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <script>
+                document.getElementById('{audio_id}').play().catch(function(error) {{
+                    console.log('Autoplay was prevented: ', error);
+                    // You might want to show a play button or message to the user here
+                }});
+            </script>
+            """
+            return True
+        except Exception as e:
+            print(f"State: tool output xml: An error occurred: {e}")
+        return False
+
+2. The current playback reflex code that uses the audio html created by the agent:
+def audio_block(url, json):
+    return rx.vstack(
+        #rx.text(f"Debug - URL type: {type(url)}"),
+        #rx.text(f"Debug - URL value: {url}"),
+        #rx.text(f"Debug - URL as string: {url_str}"),
+        json_block(json),
+        rx.html(url),
+        spacing="4",
+        align_items="center",
+    )
+
+the new dedicated component that creates the audio player but is not surrently backed by any state variables:
+def action_bar() -> rx.Component:
+    """The action bar to send a new message."""
+    return rx.chakra.box(
+        rx.chakra.vstack(
+            #rx.chakra.hstack(
+                rx.chakra.tooltip(
+                    rx.chakra.text(
+                        State.usage_message,
+                        margin_top="-34px",
+                        margin_left="7px",
+                        align_self="flex-start",
+                        color="#999",
+                    ),
+                    label=State.costs_message,
+                ),
+                rx.chakra.tooltip(
+                    rx.chakra.box(
+                        rx.html("""<audio id="audio_-8041883007249332132" controls="" autoplay="" style="width: 250px; height: 20px; border-radius: 15px;">
+                <source src="https://supercog-files-dev.s3.amazonaws.com/8881895d-0b64-410a-8687-33207fa6cadd/2854fa6c-add3-406e-ab0d-987497fedada/audio/speech_nova_20240704_223906.mp3?AWSAccessKeyId=AKIAQS4JFK7EKYB4RDWC&amp;Signature=SLsc4FWaSJPaPegLFtnUxIb9wgI%3D&amp;Expires=1720161547" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>"""),
+                        margin_top="-34px",
+                        margin_left="7px",
+                        #align_self="flex-start",
+                        color="#999"
+                    ),
+                    label="Audio",
+                ),
+            #),
+            rx.chakra.form(
+                rx.chakra.form_control(
+                    rx.chakra.hstack(
+                        rx.upload(
+                            rx.chakra.button(rx.icon("upload", size=15), variant="outline"),
+                            id="upload_chat",
+                            padding_x="4",
+                            on_drop=State.handle_chat_upload(rx.upload_files(upload_id="upload_chat")),
+                        ),
+                        rx.chakra.text(State.temp_upload_file, size="sm"),
+                        command_tooltip(),
+                        rx.chakra.text_area(
+                            value=State.test_prompt,
+                            on_change=lambda text: [State.filter_metacommands_tooltip(text)],
+                            placeholder="Make a request to the agent...",
+                            id="question",
+                            _placeholder={"color": "#fffa"},
+                            is_read_only=False,
+                            height="3em",
+                            style=styles.input_style,
+                            debounce_timeout=500,
+                        ),
+                        setup_prompt_history(),
+                        rx.chakra.vstack(
+                            rx.chakra.button(
+                                rx.cond(
+                                    State.processing,
+                                    rx.chakra.box(
+                                        loading_icon(height="1em"),
+                                    ),
+                                    rx.chakra.box(rx.chakra.text("Send")),
+                                ),
+                                type_="submit",
+                                id="submit_button",
+                                _hover={"bg": styles.accent_color},
+                                border="1px solid #000",
+                                is_loading=State.processing,
+                            ),
+                            rx.cond(
+                                State.processing,
+                                rx.chakra.box(
+                                    rx.chakra.button(
+                                        rx.icon(tag="circle_off", size=16), 
+                                        #id="cancel_button",
+                                        #custom_attrs={"data-cancel": CANCEL_URL + State.run_id},
+                                        on_click=State.cancel_agent_run,
+                                    ),
+                                    #rx.script("window._setupCancelButton()"),
+                                ),
+                                rx.chakra.button(
+                                    rx.icon("message-square-plus"),
+                                    on_click=lambda: State.reset_chat(True) #type:ignore
+                                ),
+                            ),
+                        ),
+                    ),
+                    is_disabled=State.processing,
+                ),
+                on_submit=State.call_engine_service,
+                reset_on_submit=True,
+                width="100%",
+                border=f"1px solid #DDD",
+                border_radius="10px",
+            ),
+            width="100%",
+            max_w="3xl",
+            mx="auto",
+            #bg="red",
+        ),
+        py="4",
+        backdrop_filter="auto",
+        backdrop_blur="lg",
+        border_top=f"1px solid {styles.border_color}",
+        align_items="stretch",
+        width="100%",
+        height="100px",
+    )
+
+the definition of the question and answer classes which is where the state including the file to be played is currently stored:
+
+class Answer(rx.Base):
+    output:      str = ""
+    lc_run_id:   str|None=None
+    tool_output: str = ""
+    
+    # Json related variables
+    object_results: bool = False
+    tool_json:      Any = None
+
+    # xml related variables
+    xml_results:    bool = False
+    tool_xml:       Any = None
+
+    #sudio related variables
+    audio_results:   bool = False
+    audio_url:      str = ""
+    
+    # table related variables
+    table_results:  bool = False                # signals to renderer that we can start displaying
+    table_complete: bool = False                # means we've reached the end of the table
+    headers:        list[str] = []              # List of strings for headers
+    rows:           list[tuple[str, ...]] = []  # List of tuples, each tuple contains strings
+    table_output:   str = ""                    # the buffered output
+    prefix:         str = ""                    # holds any text before the first |
+    postscript:     str = ""                    # holds any text after  the first |
+    error_flag:     bool = False                # Encountered an internal exception during tool call
+    alignment:      str = "left"
+
+    hide_function_call: bool = False
+    created_at:         Optional[datetime]
+    
+class QA(rx.Base):
+    """A question and answer pair."""
+
+    question:    str
+    answers:     list[Answer] = []
+    question_bg: str = "#9f9f"
+    answer_bg:   str = "#8ee"
+
+    @classmethod
+    def with_answer(cls, msg: str, special=""):
+        align = "left"
+        if special == "welcome":
+            align = "left"
+        opts = {"question":"", "answers":[Answer(output=msg, alignment=align)]}
+        if special == "welcome":
+            opts["answer_bg"] = "#FFFEBB"
+        return cls(**opts)
+
+
+I imagine we will need a way to indicate to the front end that a new file should be added to the queue of files to be played. But I imagine this queue will be maintained in java code and that it will need a current index to remember which file it is currently playing. But I am not sure if that is the best way to go.
+
+
+    def add_to_queue(self, url: str):
+        print(f"Adding to queue: {url}")
+        self.audio_queue.append(url)
+        if not self.is_playing:
+            self.check_and_play_next()
+
+    def check_and_play_next(self):
+        print(f"Checking queue. Length: {len(self.audio_queue)}")
+        if not self.is_playing and self.audio_queue:
+            self.play_next()
+
+    def play_next(self):
+        if self.audio_queue:
+            self.current_audio = self.audio_queue.pop(0)
+            self.is_playing = True
+            print(f"Playing: {self.current_audio}")
+        else:
+            self.current_audio = ""
+            self.is_playing = False
+            print("Queue empty, stopping playback")
+
+    def handle_audio_ended(self):
+        print("Audio ended")
+        self.is_playing = False
+        self.check_and_play_next()
+
+    def handle_event(self, event):
+        if event.name == "check_and_play_next":
+            self.check_and_play_next()
+        elif event.name == "handle_audio_ended":
+            self.handle_audio_ended()
+
+    def generate_sync_audio_player_js(self):
+        return """
+            if (typeof window.handleAudioEnded === 'undefined') {
+                window.handleAudioEnded = function() {
+                    window._update_vars({ handle_audio_ended: null });
+                };
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                const player = document.getElementById('sync-audio-player');
+                if (player) {
+                    player.onended = window.handleAudioEnded;
+                }
+            });
+        """
+
+
+

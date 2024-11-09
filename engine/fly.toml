@@ -1,0 +1,35 @@
+# We define 2 processes, one for the Agents service and one for
+# the Triggersvc. 
+# We should be able to scale the number of Agents processes to do more processing, but
+# currently there should only be a single Triggersvc process. 
+#
+# We connect to the Agents and Triggersvc over the private Fly network. External
+# web requests are proxied from the Caddy service running in the Dashboard app.
+# This allows us to send everything to our supercog.ai domain and manage routes in that
+# single place.
+# 
+# Agents observes the PORT var which will normally be set to 8080 by Fly. The Triggersvc
+# always listens to port 8002 so that Caddy can direct traffic to the different services via port number.
+# I'm not sure if the routing will work properly with multiple Agents machines but a single Triggersvc machine...
+
+app = 'engine'
+primary_region = 'iad'
+
+[processes]
+  agents = "bash -c 'uvicorn supercog.engine.main:app --host $HOST --port $PORT'"
+  triggersvc = "python -m supercog.engine.triggersvc"
+
+[[vm]]
+  memory = '3gb'
+  cpu_kind = 'performance'
+  cpus = 1
+
+[env]
+  ENV = "prod"
+  ENGINE_URL="http://engine.internal:8080"
+  SYSTEM_ROOT_PATH="/code/storage"
+
+[mounts]
+  source="agents_storage"
+  destination="/code/storage"
+  processes = ["agents"]

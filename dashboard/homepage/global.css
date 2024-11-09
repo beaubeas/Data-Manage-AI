@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-inter: Inter;
+  --font-plus-jakarta-sans: "Plus Jakarta Sans";
+
+  /* font sizes */
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --bk-faint: #f8f8f8;
+  --brand: #b50000;
+
+  /* Gaps */
+  --gap-41xl: 60px;
+  --gap-11xl: 30px;
+  --gap-xl: 20px;
+  --gap-xs: 12px;
+  --gap-base: 16px;
+  --gap-29xl: 48px;
+  --gap-5xl: 24px;
+  --gap-35xl: 54px;
+  --gap-8xl: 27px;
+  --gap-6xs: 7px;
+
+  /* Paddings */
+  --padding-5xl: 24px;
+  --padding-xl: 20px;
+  --padding-26xl: 45px;
+  --padding-12xs: 1px;
+  --padding-27xl: 46px;
+  --padding-4xl: 23px;
+  --padding-10xl: 29px;
+  --padding-15xl: 34px;
+
+  /* Border radiuses */
+  --br-base: 16px;
+  --br-9xs: 4px;
+}

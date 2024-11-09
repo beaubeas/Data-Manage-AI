@@ -1,0 +1,214 @@
+In general terms would like you to build the code for what we call a tool in the LLMonster framework using an example class and some functions as template where you fill in some text with variables I specify. I will label the parts where you fill in a variable with the pattern ___variable_name___. 
+
+
+here is the list of variables and their values
+the ___tool_name___ is Confluence
+the ___logo_name___ is Atlassian.com
+the ___comany_name___ is Atlassian
+the ___library_name___ is atlassian-python-api
+Here is a list of logo names which we can use to fill in the ___logo_name___ variable by matching the ___company_name___ in a best fit attempt to the corresponding logo name
+office.com,
+salesforce.com,
+
+
+
+from monster.engine.tool_factory import ToolFactory
+
+from ___
+class ___tool_name___Tool(ToolFactory):
+    def __init__(self):
+        super().__init__(
+            id = "___tool_name____connector",
+            system_name = "___tool_name___",
+            logo_url=super().logo_from_name('___company_name___'),
+            auth_config = {
+            }
+        )
+	
+     def get_tools(self, creds_packet: dict) -> list[Callable]:
+        return [
+            super()._get_tool(creds_packet, self.___sample_function_name___),
+        ]
+	
+    @staticmethod
+    ___function_sample_name___(crds_pk: dict, ___input_parameter___: str) -> str:
+
+I would then like you to look at the python library ___library_name___ and create a wrpper for each function. The functions should be part of the class described above. The template for that is below. If the library function has any parameters, put them in the part where I indicated ___input_parameter__. Below is the template for the functions.
+    @staticmethod
+        ___function_sample_name___(crds_pk: dict, ___input_parameter___) -> str:
+
+__________________________________________
+Second tool - zap a security scanner.
+
+In general terms would like you to build the code for what we call a tool in the LLMonster framework using an example class and some functions as template where you fill in some text with variables I specify. I will label the parts where you fill in a variable with the pattern ___variable_name___. 
+
+
+here is the list of variables and their values
+the ___tool_name___ is zap
+the ___domain_name___ is zaproxy.org
+the ___comany_name___ is zap
+the ___library_name___ is zaproxy
+Here is a list of logo names which we can use to fill in the ___logo_name___ variable by matching the ___company_name___ in a best fit attempt to the corresponding logo name
+office.com,
+salesforce.com,
+
+
+Here are the templates. Please fill in the auth_config from any information you can find in the  ___library_name___ that will help you to determine what kind of authention method they use
+
+from monster.engine.tool_factory import ToolFactory
+
+from ___
+class ___tool_name___Tool(ToolFactory):
+    def __init__(self):
+        super().__init__(
+            id = "___tool_name____connector",
+            system_name = "___tool_name___",
+            logo_url=super().logo_from_domain('___domain_name___'),
+            auth_config = {
+            }
+        )
+	
+     def get_tools(self, creds_packet: dict) -> list[Callable]:
+        return [
+            super()._get_tool(creds_packet, self.___sample_function_name___),
+        ]
+	
+    @staticmethod
+    ___function_sample_name___(crds_pk: dict, ___input_parameter___: str) -> str:
+
+I would then like you to look at the python library ___library_name___ and create a wrpper for each function. enumerate each function and its signature. The functions should be part of the class described above. The template for that is below. If the library function has any parameters, put them in the part where I indicated ___input_parameter__. Below is the template for the functions.
+    @staticmethod
+        ___function_sample_name___(crds_pk: dict, ___input_parameter___) -> str:
+
+
+__________________________________________
+Third tool - nmap a port scanner.
+
+In general terms would like you to build the code for what we call a tool in the LLMonster framework using an example class and some functions as template where you fill in some text with variables I specify. I will label the parts where you fill in a variable with the pattern ___variable_name___. 
+
+
+here is the list of variables and their values
+the ___tool_name___ is nmap
+the ___domain_name___ is nmap.org
+the ___comany_name___ is nmap
+the ___library_name___ is python-nmap
+Here is a list of logo names which we can use to fill in the ___logo_name___ variable by matching the ___company_name___ in a best fit attempt to the corresponding logo name
+office.com,
+salesforce.com,
+
+
+Here are the templates. Please fill in the auth_config from any information you can find in the  ___library_name___ that will help you to determine what kind of authention method they use
+
+from monster.engine.tool_factory import ToolFactory
+from typing import Any, Callable, Optional
+from contextlib import contextmanager
+import ___library_name___
+
+from ___
+class ___tool_name___Tool(ToolFactory):
+    def __init__(self):
+        super().__init__(
+            id = "___tool_name____connector",
+            system_name = "___tool_name___",
+            logo_url=super().logo_from_domain('___domain_name___'),
+            auth_config = {
+            }
+        )
+	
+     def get_tools(self, creds_packet: dict) -> list[Callable]:
+        return [
+            super()._get_tool(creds_packet, self.___sample_function_name___),
+        ]
+	
+    @staticmethod
+    ___function_sample_name___(crds_pk: dict, ___input_parameter___: str) -> str:
+
+I would then like you to look at the python library ___library_name___ and create a wrpper for each function you find defined in there. enumerate each function and its signature. The functions should be part of the class described above. The template for that is below. If the library function has any parameters, put them in the part where I indicated ___input_parameter__. Below is the template for the functions.
+    @staticmethod
+        ___function_sample_name___(crds_pk: dict, ___input_parameter___) -> str:
+
+
+----------------------------------------
+Fourth tool - internal admion tool.
+
+In general terms would like you to build the code for what we call a tool in the LLMonster framework using an example class and some functions as template where you fill in some text with variables I specify. I will label the parts where you fill in a variable with the pattern ___variable_name___. 
+
+
+here is the list of variables and their values
+the ___tool_name___ is Admin
+the ___domain_name___ is LLMonster.ai
+the ___comany_name___ is LLMonster
+the ___library_name___ is None
+Here is a list of logo names which we can use to fill in the ___logo_name___ variable by matching the ___company_name___ in a best fit attempt to the corresponding logo name
+office.com,
+salesforce.com,
+
+
+Here are the templates. Please fill in the auth_config from any information you can find in the  ___library_name___ that will help you to determine what kind of authention method they use
+
+from monster.engine.tool_factory import ToolFactory
+from typing import Any, Callable, Optional
+from contextlib import contextmanager
+import ___library_name___
+
+from ___
+class ___tool_name___Tool(ToolFactory):
+    def __init__(self):
+        super().__init__(
+            id = "___tool_name____connector",
+            system_name = "___tool_name___",
+            logo_url=super().logo_from_domain('___domain_name___'),
+            auth_config = {
+            }
+        )
+	
+     def get_tools(self, creds_packet: dict) -> list[Callable]:
+        return [
+            super()._get_tool(creds_packet, self.___sample_function_name___),
+        ]
+	
+    @staticmethod
+    ___function_sample_name___(crds_pk: dict, ___input_parameter___: str) -> str:
+
+----------------------------------------
+fifth tool - weather tool. first instance uses openmeteo
+
+In general terms would like you to build the code for what we call a tool in the LLMonster framework using an example class and some functions as template where you fill in some text with variables I specify. I will label the parts where you fill in a variable with the pattern ___variable_name___. 
+
+
+here is the list of variables and their values
+the ___tool_name___ is Weather
+the ___domain_name___ is open-meteo.com
+the ___comany_name___ is open-meteo
+the ___library_name___ is openmeteopy
+Here is a list of logo names which we can use to fill in the ___logo_name___ variable by matching the ___company_name___ in a best fit attempt to the corresponding logo name
+office.com,
+salesforce.com,
+
+
+Here are the templates. Please fill in the auth_config from any information you can find in the  ___library_name___ that will help you to determine what kind of authention method they use
+
+from monster.engine.tool_factory import ToolFactory
+from typing import Any, Callable, Optional
+from contextlib import contextmanager
+import ___library_name___
+
+from ___
+class ___tool_name___Tool(ToolFactory):
+    def __init__(self):
+        super().__init__(
+            id = "___tool_name____connector",
+            system_name = "___tool_name___",
+            logo_url=super().logo_from_domain('___domain_name___'),
+            auth_config = {
+            }
+        )
+	
+     def get_tools(self, creds_packet: dict) -> list[Callable]:
+        return [
+            super()._get_tool(creds_packet, self.___sample_function_name___),
+        ]
+	
+    @staticmethod
+    ___function_sample_name___(crds_pk: dict, ___input_parameter___: str) -> str:
+

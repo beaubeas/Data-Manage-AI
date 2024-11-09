@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with iframe</title>
+</head>
+<body>
+    <h1>Welcome to my page</h1>
+    <p>Below is an iframe containing another page:</p>
+    <iframe src="/guest/bc9cce5b-1ca7-4eb4-8939-5736f5d84615/" width="800" height="800" frameborder="0"></iframe>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with dynamic iframe</title>
+</head>
+<body>
+    <h1>Welcome to my page</h1>
+    <p>Below is an iframe with a dynamically set source:</p>
+    <iframe id="myIframe" width="800" height="800" frameborder="0"></iframe>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get the 'id' parameter from the URL
+        var id = getUrlParameter('id');
+
+        // Set the iframe source using the id
+        var iframe = document.getElementById('myIframe');
+        iframe.src = '/guest/' + id + '/';
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+# Usage:
+# You start by giving the excel file name to the first agent, and it generates
+# the mappings file. Now you can test the load with the second agent, OR
+# even call the second agent from the first with this prompt:
+#
+#     call the agent "Load Excel rows from CSV Mapping" with this input: 
+#     {"excel_file":"BSRRenewal.xlsx", "worksheet":"Table 1", "mappings_csv":"newmaps.csv"}
+
+
+
+Name: Generate CSV Mapping
+(This is probably the only agent you need)
+Instructions:
+
+NOTE: Don't EVER use parallel tool calling.
+You are a helpful assistant. Your job is to create a mapping description that explains how to map a spreadsheet row of data into a set of related Salesforce objects.
+
+A mapping definition is a simple CSV table that lists the source column,target object plus target field name, parent object, example source value, and the example target value. Always put example values in quotes. To supply a fixed target value the source column can be blank. Specify a child->parent relationship by indicating the parent object type in that column. Here is an example for a Contact record:
+source_col,target_field,parent_object,source_val,target_val
+person_name,Contact.FullName,,"Scott P","Scott P"
+addr_city,Contact.City,,"San Francisco","San Francisco"
+,Contact.RecordTypeId,,,"01uDL00000r0uEWYAY"
+cnum,Case.CaseNumber,Contact,"AB123","AB123"
+
+Call the "access_excel_file" function with the filename given in the input, and analyze the first row of the "Table 1" worksheet.
+
+Now determine the required fields for the Opportunity and OpportunityLineItem objects. 
+
+Now download the Opportunity record with Id "006DL00000SDQfpYAH", and download its children 
+OpportunityLineItem objects. Now infer how the fields were mapped from the spreadsheet row, 
+and generate the mappings like in the example above, and save these mappings to a 
+file called "newmaps.csv".
+
+Tools:
+- Call Agent
+- Excel
+- Salesforce Warner Test Sandbox
+
+
+
+Name: Load Excel rows from CSV Mapping
+Instructions:
+You are a helpful assistant with access to various tools.
+
+Tools:
+- - Salesforce Warner Test Sandbox

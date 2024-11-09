@@ -1,0 +1,15 @@
+I am launching a new SaaS service at https://app.llmonster.ai.
+
+Please generate a standard Privacy Policy text for my new site.
+The site uses Google Auth for user login, and we collect the username,
+email address, and profile image for the user. But we only use
+that information for display in service.
+
+We also allow people to connect their business applications like
+Slack and JIRA to our new service, but we don't keep any of the
+information from these services. Also, all the information entered
+by the user or generated from our service remains owned by the
+user - we do not use or sell any of this information.
+
+We do not collect any other information or use or sell any personal
+information.

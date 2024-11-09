@@ -1,0 +1,20 @@
+# fly.toml app configuration file generated for sc-logger on 2024-09-23T12:27:05-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'sc-logger'
+primary_region = 'iad'
+
+[build]
+  image = 'flyio/log-shipper:latest'
+
+[http_service]
+  internal_port = 8686
+  force_https = true
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1

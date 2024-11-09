@@ -1,0 +1,67 @@
+{
+  "display_information": {
+      "name": "Supercog AI",
+      "description": "Supercog AI's built in slack agent assistant",
+      "background_color": "#b50000"
+  },
+  "features": {
+      "app_home": {
+          "home_tab_enabled": true,
+          "messages_tab_enabled": true,
+          "messages_tab_read_only_enabled": false
+      },
+      "bot_user": {
+          "display_name": "Supercog AI",
+          "always_online": true
+      },
+      "assistant_view": {
+          "assistant_description": "Hi, I am Supercog and I am here to help!",
+          "suggested_prompts": []
+      }
+  },
+  "oauth_config": {
+      "redirect_urls": [
+          "https://app.supercog.ai/home/"
+      ],
+      "scopes": {
+          "bot": [
+              "app_mentions:read",
+              "assistant:write",
+              "channels:history",
+              "channels:read",
+              "chat:write",
+              "chat:write.customize",
+              "chat:write.public",
+              "files:read",
+              "files:write",
+              "groups:history",
+              "groups:read",
+              "im:history",
+              "im:read",
+              "links.embed:write",
+              "links:read",
+              "links:write",
+              "users:read",
+              "mpim:history",
+              "mpim:read",
+              "metadata.message:read"
+          ]
+      }
+  },
+  "settings": {
+      "event_subscriptions": {
+          "bot_events": [
+              "app_mention",
+              "assistant_thread_context_changed",
+              "assistant_thread_started",
+              "message.channels",
+              "message.groups",
+              "message.im",
+              "message.mpim"
+          ]
+      },
+      "org_deploy_enabled": false,
+      "socket_mode_enabled": true,
+      "token_rotation_enabled": false
+  }
+}

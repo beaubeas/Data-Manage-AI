@@ -1,0 +1,233 @@
+* {
+    font-family: 'Roboto', sans-serif;
+    font-size:small;
+}
+
+.agent_stats * {
+    margin: 0;
+}
+
+#tb_box thead {
+    display: none;
+}
+
+#tb_box td {
+    font-size: 8px;
+    padding: 0;
+}
+
+.chat_answer_box li > :first-child {
+    display:inline;
+}
+
+.hover-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none !important; /* Initially hide the button */
+}
+
+.narrow_chat .chat_answer_box:hover .hover-button {
+    display: block !important; /* Show the button when hovering over the container */
+}
+
+
+#test_prompt_button {
+    margin-top:2px !important;
+}
+
+#page_container {
+    padding-inline-start: 0;
+    padding-inline-end: 1em;
+    overflow-y: auto;
+}
+#page_container > div > div {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.edge_bleed {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#question {
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#question:focus {
+    outline: none !important;
+    border: 0px solid transparent;  
+    border-radius: 0;
+    box-shadow: none !important;
+}
+
+.chakra_transistion {
+    transition-property: var(--chakra-transition-property-common);
+    transition-duration: var(--chakra-transition-duration-normal);
+}
+
+.webkit-max-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lines-2 {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+}
+
+.lines-3 {
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+}
+
+.lines-4 {
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+}
+
+#cred_form label {
+    color:#888;
+    margin-top:18px;
+    margin-bottom:0;
+}
+
+.user-instruction-box * {
+    margin-inline: 0 !important;
+}
+
+.gridjs-table th, .gridjs-table td {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.files_table th, td {
+    padding: 2px !important;
+}
+
+.user-instruction-box textarea {
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
+    font-size: 10pt;
+}
+
+/* NEW Supercog CHAT styles */
+
+
+.run_list_button:hover {
+    background-color:#DDC;
+}
+
+.run_time {
+    position:absolute;
+    left: 5px;
+    bottom: -2px;
+    font-size:7pt;   
+    color:#bbb;
+}
+
+.sc_chat_question_box li > :first-child {
+    display:inline;
+}
+
+.sc_chat_answer_box {
+
+}
+
+#accordion-panel-tool_library1, #accordion-panel-tool_library1 * {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.chakra-menu__menu-button {
+    padding-top: 0px;
+    padding-bottom: 0px !important;
+    margin-bottom: 2px !important;
+}
+
+.copy_button {
+    opacity: 0;
+}
+
+.copy_button:focus {
+    opacity: 1;
+}
+
+.code_block_div:hover .copy_button {
+    opacity: 1;
+}
+
+.cred_category_link {
+    font-weight: normal;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cred_category_link:hover {
+    text-decoration: none !important;
+}
+
+.starter-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+
+.starter-card:hover {
+    background-color: #DDD;
+    cursor: pointer;
+}
+
+.rx-Upload {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.file_link {
+    cursor: pointer;
+}
+
+.light-text {
+    color: #606060;
+    font-size: 0.7rem;
+    margin-left: 8px;
+}
+
+button > .light-text {
+    position: absolute;
+    right: 10px;
+    visibility: hidden;
+}
+
+button:hover > .light-text {
+    visibility: visible;
+}
+
+.elapsed-time {
+    color: #969696;
+    font-size: 0.7rem;
+    margin-left: 8px;
+    float: right;
+    display: block;
+}
+
+.welcome_msg {
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.03);
+    font-style: italic;
+}
+
+.hide-google-login {
+    display: none !important;
+}
+
+.vspacing h1, h2, h3 {
+    margin-top: 1.5em !important;
+    margin-bottom: 0.5em !important;
+}

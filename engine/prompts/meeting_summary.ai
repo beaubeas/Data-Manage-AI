@@ -1,0 +1,156 @@
+Please write a summary of the meeting whose transcript follows below. Start with a simple,
+comma separated, list of the participants. Then follow with sections that
+summarize the status of projects mentioned in the meeting. For each project
+note the timestamp of the discussion and include a link to the recording
+that looks like: 
+"https://drive.google.com/file/d/1QCm-IIW_HMhCWEl9atu6v5CBG5NGQ2cx/view?t=<minutes>m<seconds>s".
+Write the links in plain text.
+
+------------------------------
+00:10:30.727,00:10:33.727
+Jim Lyndon: checkout extensibility - terrible name
+
+00:10:46.561,00:10:49.561
+Mala Munisamy: Ryan, I would love to understand the TTM implementation refresh , if you can point to one-pager, i will review. thanks.
+
+00:11:05.315,00:11:08.315
+Reno Brown: ^ https://team.atlassian.com/project/TATAR-972/about
+
+00:11:06.238,00:11:09.238
+Bruce Rechichar: +1
+
+00:11:19.723,00:11:22.723
+Scott Idler: liquid death is the best name for water
+
+00:12:02.290,00:12:05.290
+Ryan Farjadi: TTM implementation is also a bit of a misleading name haha. We're not re-implementing the tag manager, it's more of a settings page refresh to help self service clients onboard and implement the tag manager themselves.
+
+00:12:37.164,00:12:40.164
+Mala Munisamy: gotcha, thanks for the clarity.
+
+00:14:27.398,00:14:30.398
+Mala Munisamy: will be right back.
+
+00:24:05.089,00:24:08.089
+Mala Munisamy: this is curated data for trial and demo?
+
+00:24:11.307,00:24:14.307
+Mala Munisamy: going into S3
+
+00:24:25.733,00:24:28.733
+Ryan Farjadi: Yes, a snapshot of fixed data
+
+00:24:29.952,00:24:32.952
+Mala Munisamy: thx
+
+00:32:19.993,00:32:22.993
+Scott Persinger: many people will ONLY see the project name - so specificity wins
+
+00:33:54.775,00:33:57.775
+Scott Persinger: we are out of time - need to move to Henry
+
+00:34:39.360,00:34:42.360
+Jim Lyndon: what country is Henry in? go
+
+00:34:57.127,00:35:00.127
+Scott Persinger: Blondeistan
+
+00:35:40.226,00:35:43.226
+Jim Lyndon: too late in Indonesia, unless the window is cgi
+
+00:36:50.617,00:36:53.617
+Ryan Farjadi: We're going to be able to use Samba for retargeting?
+
+00:37:02.620,00:37:05.620
+Ryan Farjadi: Nice!
+
+00:40:03.188,00:40:06.188
+Scott Persinger: wrap it up
+
+00:43:20.322,00:43:23.322
+Dan Stynchula: awesome idea!!!!
+
+00:45:05.879,00:45:08.879
+Ani Govindan: what is unified Migration tool?
+
+00:45:38.885,00:45:41.885
+Scott Idler: checkout the bullets in the doc @Anit
+
+00:45:43.570,00:45:46.570
+Scott Idler: Ani*
+
+00:46:18.013,00:46:21.013
+Scott Idler: I dont know many details beyond that, maybe Henry does if he was in their planning sessions
+
+00:46:50.643,00:46:53.643
+Ani Govindan: Got it thanks
+
+00:49:04.111,00:49:07.111
+Ani Govindan: CSAT?
+
+00:49:08.121,00:49:11.121
+Dan Stynchula: CSAT?
+
+00:49:13.587,00:49:16.587
+Dan Stynchula: Acronym?
+
+00:49:17.988,00:49:20.988
+Ani Govindan: :)
+
+00:49:20.878,00:49:23.878
+Reno Brown: customer satisfaction
+
+00:49:25.732,00:49:28.732
+Scott Idler: wrong window, try google.com
+
+00:49:35.370,00:49:38.370
+Dan Stynchula: :P
+
+00:50:14.943,00:50:17.943
+Reno Brown: I've got to jump for an appt, I'll finish up with the recording, thanks folks
+
+00:50:25.229,00:50:28.229
+Ani Govindan: why do we have platform teams having bigger deployments?
+
+00:50:38.511,00:50:41.511
+Scott Idler: lots of small changes
+
+00:50:53.384,00:50:56.384
+Scott Idler: all day, every day
+
+00:51:04.503,00:51:07.503
+Jim Lyndon: Idler don't backtrack, take the W
+
+00:53:21.801,00:53:24.801
+Scott Idler: brutal, picking her manually gathered data
+
+00:53:49.670,00:53:52.670
+Jim Lyndon: we should build an email ingester
+
+00:53:54.646,00:53:57.646
+Ani Govindan: the shipped email will go up. I have 2 coming up this week
+
+00:55:07.066,00:55:10.066
+Ani Govindan: Like the incident count
+
+00:55:33.164,00:55:36.164
+Scott Idler: one of the biggest improvements i have witnessed since joining
+
+00:57:57.967,00:58:00.967
+Toussaint Minett: To make sure this works over time we'll need to have some consistency in how we track/plan across teams in Jira/Atlas.
+
+00:58:13.423,00:58:16.423
+Ani Govindan: for interrupt versus planned we need to come up with a unified decision on how we want to track that.
+
+00:58:22.125,00:58:25.125
+Toussaint Minett: ^
+
+00:59:40.666,00:59:43.666
+Jim Lyndon: thanks Mala!
+
+00:59:47.916,00:59:50.916
+Ani Govindan: That was awesome Mala
+
+00:59:49.200,00:59:52.200
+Bruce Rechichar: Awesome Job all!!
+
